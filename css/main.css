@@ -13,4 +13,8 @@ h1 {
 h3{
    font-family: 'Quicksand', sans-serif; 
 }
+.section {
+  padding: 4rem 0 3rem;
+  text-align: center;
+}
 
