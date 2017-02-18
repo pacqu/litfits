@@ -18,3 +18,29 @@ h3{
   text-align: center;
 }
 
+.dropdown {
+    position: relative;
+    text-align: left;
+    background-color: #5F89C2;
+    display: inline-block;
+    margin: 10px 10px 10px 10px;
+    padding-left: 10px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #425978;
+    min-width: 160px;
+    margin: 10px 10px 10px 10px;
+    padding-left: 10px;
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+#clothchoices{
+    padding-top: 50px;
+}
