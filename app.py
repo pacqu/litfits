@@ -144,6 +144,13 @@ def clothpage(cloth=""):
         return render_template("clothpage.html",cloth = cloth)
     else:
         return redirect('/')
+
+@app.route("/closet", methods=["GET"])
+def closet():
+    if session.get('user', None):
+        return render_template("closet.html")
+    else:
+        return redirect('/')
     
 @app.route('/logoff', methods=["GET"])
 def logoff():
@@ -155,6 +162,12 @@ def logoff():
 def getcloth(cloth=""):
     piece = dbm.get_cloth(cloth)
     return json.JSONEncoder().encode(piece)
+
+@app.route('/getcloset')
+def getcloset():
+    u = session['user']
+    closet = dbm.get_closet(u)
+    return json.JSONEncoder().encode(closet)
     
 
 if __name__ == '__main__':

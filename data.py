@@ -85,7 +85,7 @@ class DatabaseManager():
                   (email,));
         closet = c.fetchall()
         connection.close()
-        return user
+        return closet
 
     def get_cloth(self, cloth):
         connection = sqlite3.connect(self.database)
@@ -100,6 +100,8 @@ class DatabaseManager():
 if __name__== '__main__':
   d = DatabaseManager.create()
   d.register_cloth("black shirt", "test@email.com", "top", "tshirt")
-  test = d.get_cloth("black shirt")
+  d.register_cloth("black pants", "test@email.com", "bottom", "slacks")
+  #test = d.get_cloth("black shirt")
+  test = d.get_closet("test@email.com")
   print test
   
