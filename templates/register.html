@@ -1,0 +1,40 @@
+{% extends "template.html" %}
+  {% block content %}
+  <div class="container">
+    <form method="POST">
+
+      <div class="row">
+      <h2>Lit Fit Registration</h2>
+	<div class="twelve columns">
+	  <h6>Name:</h6>
+	  <input name="name" type="name" placeholder="Kaizen Castanos">
+	</div>
+      </div>
+      
+      <div class="row">
+	<div class="twelve columns">
+	  <h6>Email:</h6>
+	  <input name="email" type="email" placeholder="email">
+	</div>
+      </div>
+
+      <div class="row">
+	<div class="twelve columns">
+	  <h6>Password:</h6>
+	  <input name="password" type="password" placeholder="">
+	</div>
+      </div>
+
+      <div class="row">
+	<div class="twelve columns">
+	  <h6>Confirm Password:</h6>
+	  <input name="confirmPassword" type="password" placeholder="">
+	</div>
+      </div>
+
+      <div class="row">
+	<input type="submit" name="submit" value="register">
+      </div>
+    </form>
+  </div>
+  {% endblock %}
