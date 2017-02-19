@@ -1,0 +1,77 @@
+{% extends "template.html" %}
+{% block content %}
+<div class="section">
+  <div class="container">
+    <div class="row">        
+      <h2>Add Clothing</h2>        
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <div class="four columns">
+        <img src="http://i.imgur.com/q3zq1zv.png" style="width:16rem;height:16rem">
+        <h3>Take Picture</h3>
+      </div>
+      <div class="four columns">
+        <img src="http://i.imgur.com/q3zq1zv.png" style="width:16rem;height:16rem">
+        <h3>From Photos</h3>
+      </div>
+      <div class="four columns">
+        <img src="http://i.imgur.com/q3zq1zv.png" style="width:16rem;height:16rem">
+        <h3>Online</h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form method="POST">
+  
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <input id="clothing" name="photo" class="button-primary" type="file" value="Upload Photo">
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <div class="twelve columns">
+	<h6>Give This Piece of Clothing a Name:</h6>
+	<input name="name" type="name" placeholder="A top Top">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="container">
+    <div class="row">
+    </div>
+    <h3>How Would You Categorize This Top?</h3>
+    <div class="twelve columns">
+      <select class="u-full-width" name="TopKind">
+	<option value="tank">Tank</option>
+	<option value="tshirt">T-Shirt</option>
+	<option value="longsleeve">Longsleeve</option>
+	<option value="sweater">Sweater</option>
+	<option value="cardigan">Cardigan</option>
+	<option value="outerwear">Outerwear</option>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <input type="submit" name="submit" value="Register Top">
+    </div>
+  </div>
+</div>
+
+</form>
+{% endblock %}

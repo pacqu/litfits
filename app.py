@@ -1,7 +1,7 @@
 from flask import Flask, redirect, render_template, request, url_for, session
 
 from data import DatabaseManager
-dbm = DatabaseManager.create_users()
+dbm = DatabaseManager.create()
 
 dbm.register_user("pacqqu@gmail.com","Justin Pacquing","password")
 
@@ -44,7 +44,7 @@ def register():
 @app.route('/login', methods=["GET","POST"])  
 def login():
     if session.get('user', None):
-        return redirect('/dashboard')
+        return redirect('/menu')
     if request.method == "POST":
         email = request.form['email']
         password = request.form['password']
@@ -59,11 +59,25 @@ def login():
 
 @app.route("/menu",methods=["GET"])
 def menu():
-    return render_template("index.html")
+    if session.get('user', None):
+         return render_template("index.html")
+    else:
+        return redirect('/')
     
 @app.route("/addclothing",methods=["GET"])
 def cloth():
-    return render_template("cloth.html")
+    if session.get('user', None):
+        return render_template("choosecat.html")
+    else:
+        return redirect('/')
+    
+
+@app.route("/addtop",methods=["GET","POST"])
+def top():
+    if session.get('user', None):
+        return render_template("addtop.html")
+    else:
+        return redirect('/')
 
 @app.route('/logoff')
 def logoff():

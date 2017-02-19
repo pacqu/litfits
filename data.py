@@ -7,13 +7,20 @@ class DatabaseManager():
         self.database = database
     
     @staticmethod
-    def create_users():
+    def create():
         connection = sqlite3.connect(DATABASE);
         c = connection.cursor()
         c.execute("""CREATE TABLE IF NOT EXISTS users (
         email text NOT NULL PRIMARY KEY,
         fullname text NOT NULL,
         password text NOT NULL);
+        """)
+        c.execute("""CREATE TABLE IF NOT EXISTS clothes (
+        name text NOT NULL PRIMARY KEY,
+        email text NOT NULL,
+        clothpic blob,
+        category text NOT NULL,
+        subcategory text NOT NULL);
         """)
         connection.commit()
         connection.close()
@@ -42,6 +49,39 @@ class DatabaseManager():
         if actual_password:
             return actual_password[0] == password
         return False
+    
+    def register_cloth(self, name, email, clothpic, category, subcategory):
+        connection = sqlite3.connect(self.database);
+        c = connection.cursor()
+        result = True
+        try:
+            c.execute('INSERT INTO clothes VALUES (?, ?, ?, ?, ?)',
+                    (name, email, clothpic, category, subcategory))
+        except sqlite3.IntegrityError:
+            result = False
+        connection.commit()
+        connection.close()
+        return result
+
+    def fetch_all_users(self):
+        connection = sqlite3.connect(self.database)
+        c = connection.cursor()
+        c.execute('SELECT * FROM users');
+        users = c.fetchall()
+        connection.close()
+        return users
+
+    def fetch_all_clothes(self):
+        connection = sqlite3.connect(self.database)
+        c = connection.cursor()
+        c.execute('SELECT * FROM clothes');
+        users = c.fetchall()
+        connection.close()
+        return users
 
 if __name__== '__main__':
-    pass
+  d = DatabaseManager.create()
+  d.register_cloth("black shirt", "test@email.com", 0, "top", "tshirt")
+  test = d.fetch_all_clothes()
+  print test
+  
