@@ -1,26 +1,15 @@
 {% extends "template.html" %}
 {% block content %}
-	<div class="section">
-    <div class="container">
-      <div class="row">        
-        <h3>How would you like this categorized?</h3>        
-      </div>
-      <div class="row">        
-        <a href="/addtop"> <button>Tops</button> </a>                
-        <button>Bottoms</button>                
-        <button>Dress</button>        
-      </div>
+<div class="section">
+  <div class="container">
+    <div class="row">        
+      <h3>How would you like this categorized?</h3>        
     </div>
-  </div>
+    <div class="row">        
+      <a href="/addtop"> <button>Tops</button> </a>                
+      <a href="/addbot"> <button>Bottoms</button> </a>
+    </div>
+  </div>  
+</div>
 
-  <div class="section">
-    <div class="container">
-      <div class="row">        
-        <h4>or type:</h4>        
-      </div>
-      <div class="row">    
-        <input class="u-full-width" type="text">        
-      </div>
-    </div>
-  </div>
 {% endblock %}

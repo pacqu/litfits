@@ -1,0 +1,7 @@
+$(document).ready(function() {
+    var clothlist = function clothlist(){
+	$.getJSON("/getcloth", function(data){
+	    console.log(data);
+	});
+    };
+});

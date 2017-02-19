@@ -1,4 +1,8 @@
+import json, jinja2, time, os
 from flask import Flask, redirect, render_template, request, url_for, session
+
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_FOLDER = os.path.join(APP_ROOT, 'static/images/uploads')
 
 from data import DatabaseManager
 dbm = DatabaseManager.create()
@@ -7,6 +11,7 @@ dbm.register_user("pacqqu@gmail.com","Justin Pacquing","password")
 
 app = Flask(__name__)
 app.secret_key = 'w0we33'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route("/",methods=["GET","POST"])
 def home():
@@ -75,15 +80,82 @@ def cloth():
 @app.route("/addtop",methods=["GET","POST"])
 def top():
     if session.get('user', None):
-        return render_template("addtop.html")
+        if request.method == "POST":
+            email = session['user']
+            name = request.form['name']
+            clothpic = request.files['photo']
+            category = 'Top'
+            subcategory = request.form['TopKind']
+            dbm.register_cloth(name, email, category, subcategory)
+            test = dbm.fetch_all_clothes()
+            print test
+            clothpic.save(os.path.join(app.config['UPLOAD_FOLDER'], name))
+            redir = '/clothpage/' + name
+            return redirect(redir)
+        else:
+            return render_template("addtop.html")
     else:
         return redirect('/')
 
-@app.route('/logoff')
+@app.route("/addbot",methods=["GET","POST"])
+def bot():
+    if session.get('user', None):
+        if request.method == "POST":
+            email = session['user']
+            name = request.form['name']
+            clothpic = request.files['photo']
+            category = 'Bottom'
+            subcategory = request.form['BotKind']
+            dbm.register_cloth(name, email, category, subcategory)
+            #test = dbm.fetch_all_clothes()
+            #print test
+            clothpic.save(os.path.join(app.config['UPLOAD_FOLDER'], name))
+            redir = '/clothpage/' + name
+            return redirect(redir)
+        else:
+            return render_template("addbot.html")
+    else:
+        return redirect('/')
+        
+
+@app.route("/addother",methods=["GET","POST"])
+def other():
+    if session.get('user', None):
+        if request.method == "POST":
+            email = session['user']
+            name = request.form['name']
+            clothpic = request.files['photo']
+            category = 'Other'
+            subcategory = request.form['OtherKind']
+            dbm.register_cloth(name, email, category, subcategory)
+            #test = dbm.fetch_all_clothes()
+            #print test
+            clothpic.save(os.path.join(app.config['UPLOAD_FOLDER'], name))
+            redir = '/clothpage/' + name
+            return redirect(redir)
+        else:
+            return render_template("addother.html")
+    else:
+        return redirect('/')
+
+@app.route("/clothpage/<cloth>", methods=["GET"])
+def clothpage(cloth=""):
+    if session.get('user', None):
+        return render_template("clothpage.html",cloth = cloth)
+    else:
+        return redirect('/')
+    
+@app.route('/logoff', methods=["GET"])
 def logoff():
     if session.get('user', None):
         session['user'] = 0
     return redirect('/')
+
+@app.route('/getcloth/<cloth>', methods=["GET"])
+def getcloth(cloth=""):
+    piece = dbm.get_cloth(cloth)
+    return json.JSONEncoder().encode(piece)
+    
 
 if __name__ == '__main__':
     app.debug = True

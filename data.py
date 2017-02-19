@@ -18,7 +18,6 @@ class DatabaseManager():
         c.execute("""CREATE TABLE IF NOT EXISTS clothes (
         name text NOT NULL PRIMARY KEY,
         email text NOT NULL,
-        clothpic blob,
         category text NOT NULL,
         subcategory text NOT NULL);
         """)
@@ -50,13 +49,13 @@ class DatabaseManager():
             return actual_password[0] == password
         return False
     
-    def register_cloth(self, name, email, clothpic, category, subcategory):
+    def register_cloth(self, name, email, category, subcategory):
         connection = sqlite3.connect(self.database);
         c = connection.cursor()
         result = True
         try:
-            c.execute('INSERT INTO clothes VALUES (?, ?, ?, ?, ?)',
-                    (name, email, clothpic, category, subcategory))
+            c.execute('INSERT INTO clothes VALUES (?, ?, ?, ?)',
+                    (name, email, category, subcategory))
         except sqlite3.IntegrityError:
             result = False
         connection.commit()
@@ -79,9 +78,28 @@ class DatabaseManager():
         connection.close()
         return users
 
+    def get_closet(self, email):
+        connection = sqlite3.connect(self.database)
+        c = connection.cursor()
+        c.execute('SELECT * FROM clothes WHERE email=?',
+                  (email,));
+        closet = c.fetchall()
+        connection.close()
+        return user
+
+    def get_cloth(self, cloth):
+        connection = sqlite3.connect(self.database)
+        c = connection.cursor()
+        c.execute('SELECT * FROM clothes WHERE name=?',
+                  (cloth,));
+        cloth = c.fetchone()
+        connection.close()
+        return cloth
+
+
 if __name__== '__main__':
   d = DatabaseManager.create()
-  d.register_cloth("black shirt", "test@email.com", 0, "top", "tshirt")
-  test = d.fetch_all_clothes()
+  d.register_cloth("black shirt", "test@email.com", "top", "tshirt")
+  test = d.get_cloth("black shirt")
   print test
   

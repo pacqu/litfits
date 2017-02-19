@@ -1,0 +1,25 @@
+{% extends "template.html" %}
+{% block content %}
+<div id="clothname">{{cloth}}</div>
+
+<div class="section">
+      <div class="container">
+	<div class="row">
+	  <div id="clothholder" class="twelve columns">
+	  </div>
+	</div>
+      </div>
+</div>
+
+<div class="section">
+      <div class="container">
+	<div class="row">
+	  <a class="button button-primary" href="/menu">Return to Menu</a>
+	</div>
+      </div>
+</div>
+
+<script src="../static/js/jquery.js"></script>
+<script src="../static/js/cloth.js"></script>
+
+{% endblock %}
