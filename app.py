@@ -3,6 +3,8 @@ from flask import Flask, redirect, render_template, request, url_for, session
 from data import DatabaseManager
 dbm = DatabaseManager.create_users()
 
+dbm.register_user("pacqqu@gmail.com","Justin Pacquing","password")
+
 app = Flask(__name__)
 app.secret_key = 'w0we33'
 
@@ -50,9 +52,9 @@ def login():
             session['user'] = email
             return redirect(url_for('menu'))
         else:
-            return render_template("login.html", message = "Email/Password Incorrect")
+            return render_template("login.html")
     else:
-      return render_template("login.html", message = message)
+      return render_template("login.html")
 
 
 @app.route("/menu",methods=["GET"])
@@ -62,6 +64,12 @@ def menu():
 @app.route("/addclothing",methods=["GET"])
 def cloth():
     return render_template("cloth.html")
+
+@app.route('/logoff')
+def logoff():
+    if session.get('user', None):
+        session['user'] = 0
+    return redirect('/')
 
 if __name__ == '__main__':
     app.debug = True
