@@ -1,0 +1,46 @@
+{% extends "template.html" %}
+{% block content %}
+<form method="POST">
+<div class="section">
+      <div class="container">
+	<div class="row">
+	  <h2>Tops</h2>
+	  <div id="top-closet" class="twelve columns">
+	  </div>
+	</div>
+      </div>
+</div>
+<br>
+<div class="section">
+      <div class="container">
+	<div class="row">
+	  <h2>Bottoms</h2>
+	  <div id="bot-closet" class="twelve columns">
+	  </div>
+	</div>
+      </div>
+</div>
+<br>
+<div class="section">
+      <div class="container">
+	<div class="row">
+	  <h2>Shoes/Accessories/Other</h2>
+	  <div id="other-closet" class="twelve columns">
+	  </div>
+	</div>
+      </div>
+</div>
+
+<div class="section">
+      <div class="container">
+	<div class="row">
+	  <a class="button button-primary" href="/menu">Return to Menu</a>
+	</div>
+      </div>
+</div>
+</form>
+
+<script src="../static/js/jquery.js"></script>
+<script src="../static/js/fit.js"></script>
+
+{% endblock %}
